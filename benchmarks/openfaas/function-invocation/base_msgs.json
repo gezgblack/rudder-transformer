@@ -1,0 +1,683 @@
+[
+    {
+    "sentAt" : "XXX",
+    "messageId" : "XXX",
+    "originalTimestamp" : "XXX",
+    "channel" : "web",
+    "rudderId" : "rudderId-1",
+    "event" : "Product Viewed",
+    "context" : {
+      "locale" : "en-US",
+      "os" : {
+        "name" : "",
+        "version" : ""
+      },
+      "screen" : {
+        "density" : 2,
+        "innerWidth" : 414,
+        "innerHeight" : 713,
+        "width" : 414,
+        "height" : 896
+      },
+      "app" : {
+        "version" : "2.20.0",
+        "namespace" : "com.rudderlabs.javascript",
+        "name" : "RudderLabs JavaScript SDK",
+        "build" : "1.0.0"
+      },
+      "traits" : {
+        "auth_state" : "anonymous",
+        "shopify_domain" : "www.test.com",
+        "anonymousId" : "b9e63bcc-81da-4b10-9e83-78c9d4c5f802",
+        "dynamic_yield_session_id" : "co3trdwh2ic7i5gbk66qfp81vp0kv66a"
+      },
+      "library" : {
+        "name" : "RudderLabs JavaScript SDK",
+        "version" : "2.20.0"
+      },
+      "campaign" : {
+        "term" : "patch.com",
+        "medium" : "display",
+        "content" : "621473901723",
+        "source" : "google",
+        "name" : "Display \/\/ CA \/\/ Prospecting \/\/ Boots \/\/ Everyday \/\/ In Market Audiences"
+      },
+      "sessionId" : 1671713184085,
+      "userAgent" : "Mozilla\/5.0 (iPhone; CPU iPhone OS 16_1_2 like Mac OS X) AppleWebKit\/605.1.15 (KHTML, like Gecko) Version\/16.1 Mobile\/15E148 Safari\/604.1",
+      "ruddertyper" : {
+        "sdk" : "analytics.js",
+        "language" : "javascript",
+        "trackingPlanId" : "tp_1uZ45DFhpGdImHhzH0baIm3XHCJ",
+        "rudderTyperVersion" : "1.0.0-beta.5",
+        "trackingPlanVersion" : "44"
+      },
+      "page" : {
+        "search" : "?gclid=EAIaIQobChMI3vju7aCN_AIVQ2YBCh14uQlcEAEYASABEgJcTfD_BwE&size=8&utm_campaign=Display%20%2F%2F%20US%20%2F%2F%20Prospecting%20%2F%2F%20Shoes%20%2F%2F%20Everyday%20%2F%2F%20In%20Market%20Audiences&utm_content=621473901723&utm_medium=display&utm_source=google&utm_term=patch.com",
+        "referrer" : "https:\/\/2049e0f66bd266118b1b87f7366425f0.safeframe.googlesyndication.com\/",
+        "initial_referring_domain" : "2049e0f66bd266118b1b87f7366425f0.safeframe.googlesyndication.com",
+        "title" : "Wool Runner-up Mizzles for Men | High-Tops | Allbirds",
+        "initial_referrer" : "https:\/\/2049e0f66bd266118b1b87f7366425f0.safeframe.googlesyndication.com\/",
+        "path" : "\/products\/mens-wool-runner-up-mizzles-natural-black",
+        "tab_url" : "https:\/\/www.allbirds.com\/products\/mens-wool-runner-up-mizzles-natural-black?gclid=EAIaIQobChMI3vju7aCN_AIVQ2YBCh14uQlcEAEYASABEgJcTfD_BwE&size=8&utm_campaign=Display%20%2F%2F%20US%20%2F%2F%20Prospecting%20%2F%2F%20Shoes%20%2F%2F%20Everyday%20%2F%2F%20In%20Market%20Audiences&utm_content=621473901723&utm_medium=display&utm_source=google&utm_term=patch.com",
+        "referring_domain" : "2049e0f66bd266118b1b87f7366425f0.safeframe.googlesyndication.com",
+        "url" : "https:\/\/www.allbirds.com\/products\/mens-wool-runner-up-mizzles-natural-black?gclid=EAIaIQobChMI3vju7aCN_AIVQ2YBCh14uQlcEAEYASABEgJcTfD_BwE&size=8&utm_campaign=Display%20%2F%2F%20US%20%2F%2F%20Prospecting%20%2F%2F%20Shoes%20%2F%2F%20Everyday%20%2F%2F%20In%20Market%20Audiences&utm_content=621473901723&utm_medium=display&utm_source=google&utm_term=patch.com"
+      }
+    },
+    "type" : "track",
+    "userId" : "",
+    "integrations" : {
+      "All" : true
+    },
+    "properties" : {
+      "gender" : "Mens",
+      "category" : "Shoes",
+      "material" : "Wool",
+      "color_name" : "Natural Black (Natural Black Sole)",
+      "variant_url" : "\/products\/mens-wool-runner-up-mizzles-natural-black?size=8",
+      "handle" : "mens-wool-runner-up-mizzles-natural-black",
+      "url" : "\/products\/mens-wool-runner-up-mizzles-natural-black",
+      "sku" : "AB00AGM080",
+      "image_url" : "https:\/\/cdn.allbirds.com\/image\/upload\/f_auto,q_auto\/cms\/2bMgURZz0RlbIr00u665At\/d3095b321bc457d874b3ca23de8187f3\/AB00AGM_SHOE_ANGLE_GLOBAL_MENS_WOOL_RUNNER-UP_MIZZLE_NATURAL_BLACK_RUGGED_KHAKI.png",
+      "price" : 145,
+      "product_id" : "color-mens-wool-runner-up-mizzles-natural-black-rugged-khaki",
+      "edition" : "Classic",
+      "variant_title" : "8",
+      "silhouette" : "Runner-up",
+      "currency_symbol" : "$",
+      "currency" : "USD",
+      "hue" : "Black",
+      "name" : "Men's Wool Runner-up Mizzles"
+    },
+    "anonymousId" : "XXX"
+  },
+  {
+    "userId": "userId",
+    "messageId": "XXX",
+    "anonymousId": null,
+    "event": "Cloud2InferRequest",
+    "context": {
+      "library": {
+        "name": "rudder-analytics-python",
+        "version": "1.0.6"
+      }
+    },
+    "rudderId": "rudderId-2",
+    "properties": {
+      "input_prompt_state": "ok",
+      "source": "Temari",
+      "status": "2xx",
+      "language": "go",
+      "model_name": "ft_generate",
+      "requested_tokens": "20",
+      "postprocess_impl": "new",
+      "trimmed_prompt_chars": "0",
+      "crazy_unique_chars_ratio": "0.5675675675675675",
+      "returned_tokens": "19",
+      "input_tokens": "0",
+      "group": "",
+      "stop_nl": "True",
+      "query_mode": "HTTP",
+      "generated_tokens": "20",
+      "infer_time_in_ms": "168.16186904907227",
+      "stop_reason": "stop_token",
+      "crazy_unique_words_ratio": "1.0",
+      "is_beta": "False",
+      "sub_path": "langs12-3b-ft",
+      "duration_ms": 188.02151900308672,
+      "language_id": "3",
+      "is_snippet": "True"
+    },
+    "type": "track",
+    "timestamp": "XXX",
+    "integrations": {}
+  },
+  {
+    "messageId": "XXX",
+    "anonymousId": "XXX",
+    "event": "Cart Update",
+    "context": {
+      "topic": "carts_update",
+      "library": {
+        "name": "RudderStack Shopify Cloud",
+        "version": "1.0.0"
+      },
+      "integration": {
+        "name": "SHOPIFY"
+      }
+    },
+    "rudderId": "rudderId-3",
+    "properties": {
+      "created_at": "2022-12-22T00:40:09.199Z",
+      "id": "1cc083b20f24b09ba110cae1872324d6",
+      "updated_at": "2022-12-23T03:25:17.217Z",
+      "note": null,
+      "token": "1cc083b20f24b09ba110cae1872324d6",
+      "products": [
+        {
+          "line_price_set": {
+            "shop_money": {
+              "amount": "10.0",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "10.0",
+              "currency_code": "USD"
+            }
+          },
+          "sku": "210733",
+          "title": "Sticky Paws Syrup - Small",
+          "total_discount": "0.00",
+          "brand": "BARK",
+          "line_price": "10.00",
+          "taxable": true,
+          "discounts": [],
+          "gift_card": false,
+          "variant": "39431164756025  ",
+          "id": 39431164756025,
+          "grams": 0,
+          "quantity": 1,
+          "product_id": 4710655426617,
+          "properties": {},
+          "original_line_price": "10.00",
+          "discounted_price": "10.00",
+          "total_discount_set": {
+            "shop_money": {
+              "amount": "0.0",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "0.0",
+              "currency_code": "USD"
+            }
+          },
+          "price_set": {
+            "shop_money": {
+              "amount": "10.0",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "10.0",
+              "currency_code": "USD"
+            }
+          },
+          "original_price": "10.00",
+          "price": "10.00",
+          "discounted_price_set": {
+            "shop_money": {
+              "amount": "10.0",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "10.0",
+              "currency_code": "USD"
+            }
+          },
+          "original_line_price_set": {
+            "shop_money": {
+              "amount": "10.0",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "10.0",
+              "currency_code": "USD"
+            }
+          },
+          "key": "39431164756025:7e570f9d992e60797659a34c3526e367"
+        },
+        {
+          "line_price_set": {
+            "shop_money": {
+              "amount": "15.99",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "15.99",
+              "currency_code": "USD"
+            }
+          },
+          "sku": "212751",
+          "title": "ThrowblerBone - XL",
+          "total_discount": "0.00",
+          "brand": "BarkShop",
+          "line_price": "15.99",
+          "taxable": true,
+          "discounts": [],
+          "gift_card": false,
+          "variant": "40688673620025  ",
+          "id": 40688673620025,
+          "grams": 0,
+          "quantity": 1,
+          "product_id": 6870797615161,
+          "properties": {},
+          "original_line_price": "15.99",
+          "discounted_price": "15.99",
+          "total_discount_set": {
+            "shop_money": {
+              "amount": "0.0",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "0.0",
+              "currency_code": "USD"
+            }
+          },
+          "price_set": {
+            "shop_money": {
+              "amount": "15.99",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "15.99",
+              "currency_code": "USD"
+            }
+          },
+          "original_price": "15.99",
+          "price": "15.99",
+          "discounted_price_set": {
+            "shop_money": {
+              "amount": "15.99",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "15.99",
+              "currency_code": "USD"
+            }
+          },
+          "original_line_price_set": {
+            "shop_money": {
+              "amount": "15.99",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "15.99",
+              "currency_code": "USD"
+            }
+          },
+          "key": "40688673620025:ad0d125501d55f1fbcdaffc797d7111f"
+        },
+        {
+          "line_price_set": {
+            "shop_money": {
+              "amount": "4.49",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "4.49",
+              "currency_code": "USD"
+            }
+          },
+          "sku": "211788",
+          "title": "D'Art's Jerky",
+          "total_discount": "0.00",
+          "brand": "BarkShop",
+          "line_price": "4.49",
+          "taxable": true,
+          "discounts": [],
+          "gift_card": false,
+          "variant": "41003976458297  ",
+          "id": 41003976458297,
+          "grams": 0,
+          "quantity": 1,
+          "product_id": 6948438999097,
+          "properties": {},
+          "original_line_price": "4.49",
+          "discounted_price": "4.49",
+          "total_discount_set": {
+            "shop_money": {
+              "amount": "0.0",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "0.0",
+              "currency_code": "USD"
+            }
+          },
+          "price_set": {
+            "shop_money": {
+              "amount": "4.49",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "4.49",
+              "currency_code": "USD"
+            }
+          },
+          "original_price": "4.49",
+          "price": "4.49",
+          "discounted_price_set": {
+            "shop_money": {
+              "amount": "4.49",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "4.49",
+              "currency_code": "USD"
+            }
+          },
+          "original_line_price_set": {
+            "shop_money": {
+              "amount": "4.49",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "4.49",
+              "currency_code": "USD"
+            }
+          },
+          "key": "41003976458297:6ef755f0f960e69c6f3c198d7b95c715"
+        },
+        {
+          "line_price_set": {
+            "shop_money": {
+              "amount": "10.0",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "10.0",
+              "currency_code": "USD"
+            }
+          },
+          "sku": "207357",
+          "title": "Mikhail the Mouse King - Medium/Large",
+          "total_discount": "0.00",
+          "brand": "BARK",
+          "line_price": "10.00",
+          "taxable": true,
+          "discounts": [],
+          "gift_card": false,
+          "variant": "31319494754361  ",
+          "id": 31319494754361,
+          "grams": 0,
+          "quantity": 1,
+          "product_id": 4386464727097,
+          "properties": {},
+          "original_line_price": "10.00",
+          "discounted_price": "10.00",
+          "total_discount_set": {
+            "shop_money": {
+              "amount": "0.0",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "0.0",
+              "currency_code": "USD"
+            }
+          },
+          "price_set": {
+            "shop_money": {
+              "amount": "10.0",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "10.0",
+              "currency_code": "USD"
+            }
+          },
+          "original_price": "10.00",
+          "price": "10.00",
+          "discounted_price_set": {
+            "shop_money": {
+              "amount": "10.0",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "10.0",
+              "currency_code": "USD"
+            }
+          },
+          "original_line_price_set": {
+            "shop_money": {
+              "amount": "10.0",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "10.0",
+              "currency_code": "USD"
+            }
+          },
+          "key": "31319494754361:53c7eb58d61514281fff550f32e3a074"
+        },
+        {
+          "line_price_set": {
+            "shop_money": {
+              "amount": "9.0",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "9.0",
+              "currency_code": "USD"
+            }
+          },
+          "sku": "207331",
+          "title": "Give & Retrieve Gift",
+          "total_discount": "0.00",
+          "brand": "BARK",
+          "line_price": "9.00",
+          "taxable": true,
+          "discounts": [],
+          "gift_card": false,
+          "variant": "31100434874425  ",
+          "id": 31100434874425,
+          "grams": 0,
+          "quantity": 1,
+          "product_id": 4329392865337,
+          "properties": {},
+          "original_line_price": "9.00",
+          "discounted_price": "9.00",
+          "total_discount_set": {
+            "shop_money": {
+              "amount": "0.0",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "0.0",
+              "currency_code": "USD"
+            }
+          },
+          "price_set": {
+            "shop_money": {
+              "amount": "9.0",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "9.0",
+              "currency_code": "USD"
+            }
+          },
+          "original_price": "9.00",
+          "price": "9.00",
+          "discounted_price_set": {
+            "shop_money": {
+              "amount": "9.0",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "9.0",
+              "currency_code": "USD"
+            }
+          },
+          "original_line_price_set": {
+            "shop_money": {
+              "amount": "9.0",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "9.0",
+              "currency_code": "USD"
+            }
+          },
+          "key": "31100434874425:0c1e5bb0591541678983273681ef14cb"
+        },
+        {
+          "line_price_set": {
+            "shop_money": {
+              "amount": "14.99",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "14.99",
+              "currency_code": "USD"
+            }
+          },
+          "sku": "208657",
+          "title": "Deck the Narwhal",
+          "total_discount": "0.00",
+          "brand": "BARK",
+          "line_price": "14.99",
+          "taxable": true,
+          "discounts": [],
+          "gift_card": false,
+          "variant": "39483029651513  ",
+          "id": 39483029651513,
+          "grams": 0,
+          "quantity": 1,
+          "product_id": 6586273071161,
+          "properties": {},
+          "original_line_price": "14.99",
+          "discounted_price": "14.99",
+          "total_discount_set": {
+            "shop_money": {
+              "amount": "0.0",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "0.0",
+              "currency_code": "USD"
+            }
+          },
+          "price_set": {
+            "shop_money": {
+              "amount": "14.99",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "14.99",
+              "currency_code": "USD"
+            }
+          },
+          "original_price": "14.99",
+          "price": "14.99",
+          "discounted_price_set": {
+            "shop_money": {
+              "amount": "14.99",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "14.99",
+              "currency_code": "USD"
+            }
+          },
+          "original_line_price_set": {
+            "shop_money": {
+              "amount": "14.99",
+              "currency_code": "USD"
+            },
+            "presentment_money": {
+              "amount": "14.99",
+              "currency_code": "USD"
+            }
+          },
+          "key": "39483029651513:b578cec1470a355fc0dcd3e29a972ca8"
+        }
+      ]
+    },
+    "type": "track",
+    "integrations": {
+      "SHOPIFY": true
+    }
+  },
+  {
+    "sentAt": "XXX",
+    "messageId": "XXX",
+    "originalTimestamp": "XXX",
+    "channel": "mobile",
+    "rudderId": "rudderId-4",
+    "event": "Application Opened",
+    "context": {
+      "device": {
+        "id": "1b5c07d82b43d53c",
+        "model": "A920",
+        "manufacturer": "PAX",
+        "name": "msm8909",
+        "type": "Android"
+      },
+      "os": {
+        "name": "Android",
+        "version": "7.1.2"
+      },
+      "locale": "en-US",
+      "app": {
+        "version": "22.09.34519",
+        "namespace": "com.dojo.pax",
+        "name": "Dojo Pay",
+        "build": "34519"
+      },
+      "screen": {
+        "width": 720,
+        "density": 320,
+        "height": 1184
+      },
+      "traits": {
+        "id": "34648565",
+        "eventContext": "{\"deviceId\":\"0822438908\",\"customerId\":\"722612186018684\"}",
+        "anonymousId": "1b5c07d82b43d53c",
+        "userId": "34648565",
+        "businessGroup": "paxPaymentApp"
+      },
+      "library": {
+        "name": "com.rudderstack.android.sdk.core",
+        "version": "1.4.0"
+      },
+      "timezone": "Europe/London",
+      "userAgent": "Dalvik/2.1.0 (Linux; U; Android 7.1.2; A920 Build/N2G47H)",
+      "network": {
+        "bluetooth": false,
+        "wifi": true,
+        "carrier": "vodafone UK",
+        "cellular": true
+      }
+    },
+    "type": "track",
+    "userId": "userId",
+    "integrations": {
+      "All": true
+    },
+    "properties": {
+      "from_background": true
+    },
+    "anonymousId": "XXX"
+  },
+  {
+    "sentAt" : "XXX",
+    "userId" : "userId",
+    "messageId" : "XXX",
+    "event" : "Email Opened",
+    "context" : {
+      "library" : {
+        "name" : "unknown",
+        "version" : "unknown"
+      },
+      "traits" : {
+        "cioId" : "84ff060fb8930189cf1c",
+        "email" : "raphaelluiz.dc@gmail.com"
+      },
+      "integration" : {
+        "name" : "Customer.io"
+      }
+    },
+    "rudderId" : "rudderId-5",
+    "originalTimestamp" : "XXX",
+    "properties" : {
+      "campaignId" : 7,
+      "journeyId" : "01GM9GBAN48NEH5YY1CY5GD2FS",
+      "deliveryId" : "dgSE_wYBAInPHIjPHAGFOetnQUx1HhksoxKYMa4=",
+      "emailSubject" : "Need help creating your scenario?",
+      "eventId" : "01GMYKV3MCG0P2CZ98ZMJPW2PY",
+      "actionId" : 640
+    },
+    "type" : "track",
+    "integrations" : {
+      "Customer.io" : false
+    }
+  }
+]
