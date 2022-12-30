@@ -62,6 +62,9 @@
         "tab_url" : "https:\/\/www.allbirds.com\/products\/mens-wool-runner-up-mizzles-natural-black?gclid=EAIaIQobChMI3vju7aCN_AIVQ2YBCh14uQlcEAEYASABEgJcTfD_BwE&size=8&utm_campaign=Display%20%2F%2F%20US%20%2F%2F%20Prospecting%20%2F%2F%20Shoes%20%2F%2F%20Everyday%20%2F%2F%20In%20Market%20Audiences&utm_content=621473901723&utm_medium=display&utm_source=google&utm_term=patch.com",
         "referring_domain" : "2049e0f66bd266118b1b87f7366425f0.safeframe.googlesyndication.com",
         "url" : "https:\/\/www.allbirds.com\/products\/mens-wool-runner-up-mizzles-natural-black?gclid=EAIaIQobChMI3vju7aCN_AIVQ2YBCh14uQlcEAEYASABEgJcTfD_BwE&size=8&utm_campaign=Display%20%2F%2F%20US%20%2F%2F%20Prospecting%20%2F%2F%20Shoes%20%2F%2F%20Everyday%20%2F%2F%20In%20Market%20Audiences&utm_content=621473901723&utm_medium=display&utm_source=google&utm_term=patch.com"
+      },
+      "device": {
+        "type": "android"
       }
     },
     "type" : "track",
@@ -101,6 +104,9 @@
       "library": {
         "name": "rudder-analytics-python",
         "version": "1.0.6"
+      },
+      "device": {
+        "type": "android"
       }
     },
     "rudderId": "rudderId-2",
@@ -146,6 +152,9 @@
       },
       "integration": {
         "name": "SHOPIFY"
+      },
+      "device": {
+        "type": "ios"
       }
     },
     "rudderId": "rudderId-3",
@@ -668,6 +677,9 @@
       },
       "integration" : {
         "name" : "Customer.io"
+      },
+      "device": {
+        "type": "ios"
       }
     },
     "rudderId" : "rudderId-5",
