@@ -6,6 +6,7 @@
     "channel" : "web",
     "rudderId" : "rudderId-1",
     "event" : "Product Viewed",
+    "request_ip": "61.58.104.67",
     "context" : {
       "locale" : "en-US",
       "os" : {
@@ -95,6 +96,7 @@
     "messageId": "XXX",
     "anonymousId": null,
     "event": "Cloud2InferRequest",
+    "request_ip": "141.57.120.77",
     "context": {
       "library": {
         "name": "rudder-analytics-python",
@@ -135,6 +137,7 @@
     "messageId": "XXX",
     "anonymousId": "XXX",
     "event": "Cart Update",
+    "request_ip": "36.21.2.85",
     "context": {
       "topic": "carts_update",
       "library": {
@@ -593,6 +596,7 @@
     "channel": "mobile",
     "rudderId": "rudderId-4",
     "event": "Application Opened",
+    "request_ip": "237.55.222.61",
     "context": {
       "device": {
         "id": "1b5c07d82b43d53c",
@@ -652,6 +656,7 @@
     "userId" : "userId",
     "messageId" : "XXX",
     "event" : "Email Opened",
+    "request_ip": "78.147.99.192",
     "context" : {
       "library" : {
         "name" : "unknown",
