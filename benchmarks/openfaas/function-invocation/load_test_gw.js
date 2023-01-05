@@ -5,39 +5,24 @@ import uuid from "./uuid.js";
 
 export const options = {
   scenarios: {
-    scenario: {
+    scenario1: {
       executor: "constant-arrival-rate",
-
-      // Our test should last X seconds in total
-      duration: "10s",
-
-      // It should start X iterations per `timeUnit`. Note that iterations starting points
-      // will be evenly spread across the `timeUnit` period.
-      rate: 2,
-
-      // It should start `rate` iterations per second
+      duration: "1m",
+      rate: 65,
       timeUnit: "1s",
-
-      // It should preallocate X VUs before starting the test
-      preAllocatedVUs: 50,
-
-      // It is allowed to spin up to X maximum VUs to sustain the defined
-      // constant arrival rate.
-      maxVUs: 200
+      preAllocatedVUs: 35,
+      maxVUs: 60,
+      exec: "scenario1",
+      env: { FUNCTION: "fn-x" }
     }
   }
 };
 
-const hostUrl = __ENV.HOST_URL || "http://localhost:31112";
+const hostUrl = __ENV.HOST_URL || "http://gateway.openfaas.svc.cluster.local:8080";
 const url = `${hostUrl}/function`;
 
-// basic; geolocation
-const functions = [
-  "fn-2jjbhffshi2kxdgvbvw0h73zq0u",
-  // "fn-2jiyrdzwav3mw4kgzhnfypijwx5"
-];
-
-const maxBatchSize = parseInt(__ENV.MAX_BATCH_SIZE || 200);
+const workspaceId = __ENV.WORKSPACE_ID || "2JIryJwEQVBhtXihKzFarELIX7X";
+const maxBatchSize = parseInt(__ENV.MAX_BATCH_SIZE || 10);
 
 const base_msgs = JSON.parse(open("./base_msgs.json"));
 const base_meta = JSON.parse(open("./base_meta.json"));
@@ -49,13 +34,13 @@ export function setup() {
   const baseMsgs = JSON.parse(JSON.stringify(base_msgs));
   const minMsgsPerBaseType = parseInt(maxBatchSize / baseMsgs.length, 10);
 
-  for (let i = 0; i < baseMsgs.length; i++) {
+  for (let i = 0; i < baseMsgs.length; i += 1) {
     const msgDupCount =
       i === baseMsgs.length - 1
         ? minMsgsPerBaseType
         : maxBatchSize - payloads.length;
 
-    for (let j = 0; j < msgDupCount; j++) {
+    for (let j = 0; j < msgDupCount; j += 1) {
       const msg = JSON.parse(JSON.stringify(baseMsgs[i]));
 
       const meta = JSON.parse(JSON.stringify(base_meta));
@@ -81,64 +66,38 @@ export function setup() {
   return { payloads };
 }
 
-export default function(data) {
-  const requests = [];
+export function scenario1(data) {
+  const { payloads } = data;
 
-  functions.forEach((fn, i) => {
-    // const size = randomIntBetween(150, maxBatchSize);
-    // const direction = randomItem([-1, 1]);
+  for (let j = 0; j < payloads.length; j += 1) {
+    const uuid4 = uuid.v4();
+    payloads[j].message.messageId = uuid4;
+    payloads[j].metadata.messageId = uuid4;
+    payloads[j].destination.Transformations[0].VersionID = __ENV.FUNCTION;
+  }
 
-    // let payloads;
+  const functionUrl = `${url}/${__ENV.FUNCTION}`.trim();
 
-    // if (direction === 1) {
-    //   payloads = data.payloads.slice(0, maxBatchSize);
-    // } else {
-    //   payloads = data.payloads
-    //     .slice()
-    //     .reverse()
-    //     .slice(0, maxBatchSize);
-    // }
-    const { payloads } = data;
-
-    for (let j = 0; j < payloads.length; j++) {
-      const uuid4 = uuid.v4();
-      payloads[j].message.messageId = uuid4;
-      payloads[j].metadata.messageId = uuid4;
-      payloads[j].destination.Transformations[0].VersionID = fn;
-    }
-
-    const req = {
-      method: "POST",
-      url: `${url}/${fn}`,
-      body: JSON.stringify(payloads),
-      params: {
-        headers: { "Content-Type": "application/json" }
-      }
-    };
-
-    requests.push(req);
+  const response = http.post(functionUrl, JSON.stringify(payloads), {
+    headers: { "Content-Type": "application/json" }
   });
 
-  const responses = http.batch(requests);
+  check(response, {
+    "transformation success": r => {
+      let allSuccess = true;
 
-  responses.forEach(response => {
-    check(response, {
-      "transformation success": r => {
-        let allSucess = true;
+      // try {
+      //   JSON.parse(r.body).forEach(tR => {
+      //     if (tR.statusCode != 200) {
+      //       allSuccess = false;
+      //       throw Error();
+      //     }
+      //   });
+      // } catch (error) {
+      //   allSuccess = false;
+      // }
 
-        // try {
-        //   JSON.parse(r.body).forEach(tR => {
-        //     if (tR.statusCode != 200) {
-        //       allSucess = false;
-        //       throw Error();
-        //     }
-        //   });
-        // } catch (error) {
-        //   allSucess = false;
-        // }
-
-        return r.status === 200;
-      }
-    });
+      return allSuccess && r.status === 200;
+    }
   });
 }
