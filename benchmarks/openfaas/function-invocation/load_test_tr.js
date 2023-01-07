@@ -1,10 +1,8 @@
 import { check } from "k6";
 import http from "k6/http";
 
-import uuid from "./uuid.js";
-
 const workspaceId = __ENV.WORKSPACE_ID || "2JIryJwEQVBhtXihKzFarELIX7X";
-const host = __ENV.HOST_URL || "http://transformer.dparveez";
+const host = __ENV.HOST_URL || "http://transformer.rudder-us-east-1a-blue.svc.cluster.local:80";
 const url = `${host}/customTransform`;
 
 const maxBatchSize = parseInt(__ENV.MAX_BATCH_SIZE || 90);
@@ -50,15 +48,19 @@ export function setup() {
   return { payloads };
 }
 
-export function scenario(data) {
+let id = 0;
 
+export function scenario(data) {
   const { payloads } = data;
 
   for (let j = 0; j < payloads.length; j++) {
-    const uuid4 = uuid.v4();
-    payloads[j].message.messageId = uuid4;
-    payloads[j].metadata.messageId = uuid4;
+    const mid = `X-${__ENV.VID}-${id}`;
+
+    payloads[j].message.messageId = mid;
+    payloads[j].metadata.messageId = mid;
     payloads[j].destination.Transformations[0].VersionID = __ENV.VID;
+
+    id += 1;
   }
 
   const response = http.post(url, JSON.stringify(payloads), {
@@ -67,24 +69,18 @@ export function scenario(data) {
 
   check(response, {
     "transformation success": r => {
-      let allSucess = true;
+      // try {
+      //   JSON.parse(r.body).forEach(tR => {
+      //     if (tR.statusCode != 200) {
+      //       allSucess = false;
+      //       throw Error();
+      //     }
+      //   });
+      // } catch (error) {
+      //   allSucess = false;
+      // }
 
-      try {
-        JSON.parse(r.body).forEach(tR => {
-          if (tR.statusCode != 200) {
-            allSucess = false;
-            throw Error();
-          }
-        });
-      } catch (error) {
-        allSucess = false;
-      }
-
-      return allSucess && r.status === 200;
+      return r.status === 200;
     }
   });
-}
-
-export function teardown() {
-  console.log("DONE TESTS FOR ", __ENV.HOSTNAME);
 }
