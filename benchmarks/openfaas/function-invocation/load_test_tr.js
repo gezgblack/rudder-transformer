@@ -1,17 +1,28 @@
+import uuid from "./uuid.js";
+
 import { check } from "k6";
+import exec from 'k6/execution';
 import http from "k6/http";
 
 const workspaceId = __ENV.WORKSPACE_ID || "2JIryJwEQVBhtXihKzFarELIX7X";
 const host = __ENV.HOST_URL || "http://transformer.rudder-us-east-1a-blue.svc.cluster.local:80";
 const url = `${host}/customTransform`;
 
-const maxBatchSize = parseInt(__ENV.MAX_BATCH_SIZE || 90);
+const maxBatchSize = parseInt(__ENV.MAX_BATCH_SIZE || 5);
 const base_msgs = JSON.parse(open("./base_msgs.json"));
 const base_meta = JSON.parse(open("./base_meta.json"));
 const base_dst = JSON.parse(open("./base_dst.json"));
 
 export function setup() {
-  const payloads = [];
+  const payloadsByVersion = {};
+  let someVid;
+
+  Object.keys(exec.test.options.scenarios).forEach(key => {
+    const vid = exec.test.options.scenarios[key].env.VID;
+
+    payloadsByVersion[vid] = [];
+    someVid = vid;
+  });
 
   const baseMsgs = JSON.parse(JSON.stringify(base_msgs));
   const minMsgsPerBaseType = parseInt(maxBatchSize / baseMsgs.length, 10);
@@ -19,8 +30,8 @@ export function setup() {
   for (let i = 0; i < baseMsgs.length; i++) {
     const msgDupCount =
       i === baseMsgs.length - 1
-        ? minMsgsPerBaseType
-        : maxBatchSize - payloads.length;
+        ? maxBatchSize - payloadsByVersion[someVid].length
+        : minMsgsPerBaseType;
 
     for (let j = 0; j < msgDupCount; j++) {
       const msg = JSON.parse(JSON.stringify(baseMsgs[i]));
@@ -41,29 +52,30 @@ export function setup() {
       payload.metadata = meta;
       payload.destination = dest;
 
-      payloads.push(payload);
+      Object.keys(exec.test.options.scenarios).forEach(key => {
+        const payloadByVersion = JSON.parse(JSON.stringify(payload));
+        const vid = exec.test.options.scenarios[key].env.VID;
+        const uuid4 = uuid.v4();
+
+        payloadByVersion.message.messageId = uuid4;
+        payloadByVersion.metadata.messageId = uuid4;
+        payloadByVersion.destination.Transformations[0].VersionID = vid;
+        payloadsByVersion[vid].push(payloadByVersion);
+      });
     }
   }
 
-  return { payloads };
-}
+  Object.keys(payloadsByVersion).forEach(key => {
+    payloadsByVersion[key] = JSON.stringify(payloadsByVersion[key]);
+  });
 
-let id = 0;
+  return { payloads: payloadsByVersion };
+}
 
 export function scenario(data) {
   const { payloads } = data;
 
-  for (let j = 0; j < payloads.length; j++) {
-    const mid = `X-${__ENV.VID}-${id}`;
-
-    payloads[j].message.messageId = mid;
-    payloads[j].metadata.messageId = mid;
-    payloads[j].destination.Transformations[0].VersionID = __ENV.VID;
-
-    id += 1;
-  }
-
-  const response = http.post(url, JSON.stringify(payloads), {
+  const response = http.post(url, payloads[__ENV.VID], {
     headers: { "Content-Type": "application/json" }
   });
 
