@@ -8,7 +8,7 @@ const workspaceId = __ENV.WORKSPACE_ID || "2JIryJwEQVBhtXihKzFarELIX7X";
 const host = __ENV.HOST_URL || "http://transformer.rudder-us-east-1a-blue.svc.cluster.local:80";
 const url = `${host}/customTransform`;
 
-const maxBatchSize = parseInt(__ENV.MAX_BATCH_SIZE || 5);
+const maxBatchSize = parseInt(__ENV.MAX_BATCH_SIZE || 90);
 const base_msgs = JSON.parse(open("./base_msgs.json"));
 const base_meta = JSON.parse(open("./base_meta.json"));
 const base_dst = JSON.parse(open("./base_dst.json"));
@@ -81,18 +81,20 @@ export function scenario(data) {
 
   check(response, {
     "transformation success": r => {
+      let allSuccess = true;
+
       // try {
       //   JSON.parse(r.body).forEach(tR => {
       //     if (tR.statusCode != 200) {
-      //       allSucess = false;
+      //       allSuccess = false;
       //       throw Error();
       //     }
       //   });
       // } catch (error) {
-      //   allSucess = false;
+      //   allSuccess = false;
       // }
 
-      return r.status === 200;
+      return allSuccess && r.status === 200;
     }
   });
 }
