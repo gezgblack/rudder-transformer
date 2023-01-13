@@ -317,6 +317,7 @@ async function handleDest(ctx, version, destination) {
 
         const resp = {
           metadata: event.metadata,
+          destination: event.destination,
           statusCode: errObj.status,
           error: errObj.message,
           statTags: errObj.statTags
@@ -464,7 +465,8 @@ async function routerHandleDest(ctx) {
     defTags = {
       [tags.TAG_NAMES.DEST_TYPE]: destType.toUpperCase(),
       [tags.TAG_NAMES.MODULE]: tags.MODULES.DESTINATION,
-      [tags.TAG_NAMES.FEATURE]: tags.FEATURES.ROUTER
+      [tags.TAG_NAMES.FEATURE]: tags.FEATURES.ROUTER,
+      [tags.TAG_NAMES.IMPLEMENTATION]: tags.IMPLEMENTATIONS.NATIVE
     };
 
     const routerDestHandler = getDestHandler("v0", destType);
@@ -809,7 +811,7 @@ if (transformerTestModeEnabled) {
       );
       ctx.body = res;
     } catch (error) {
-      ctx.status = 400;
+      ctx.status = error.statusCode || 400;
       ctx.body = { error: error.message };
     }
   });
@@ -850,6 +852,9 @@ if (transformerTestModeEnabled) {
       );
       if (!trRevCode.versionId) {
         trRevCode.versionId = "testVersionId";
+      }
+      if (!trRevCode.workspaceId) {
+        trRevCode.workspaceId = "workspaceId";
       }
       const res = await setupUserTransformHandler(
         trRevCode,
@@ -1149,7 +1154,10 @@ const batchHandler = ctx => {
         errorObj.message,
         errorObj.statTags
       );
-      response.errors.push(errResp);
+      response.errors.push({
+        ...errResp,
+        destination: destEvents[0].destination
+      });
       errNotificationClient.notify(error, "Batch Transformation", {
         ...errResp,
         ...getCommonMetadata(ctx),
@@ -1297,7 +1305,10 @@ const handleDeletionOfUsers = async ctx => {
   const getReqMetadata = () => {
     try {
       const reqBody = ctx.request.body;
-      return { destType: reqBody?.destType };
+      return {
+        destType: reqBody[0]?.destType,
+        jobs: reqBody.map(req => req.jobId)
+      };
     } catch (error) {
       // Do nothing
     }

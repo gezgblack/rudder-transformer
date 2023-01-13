@@ -118,7 +118,11 @@ const events = Object.keys(Event);
 events.forEach(event => {
   nameToEventMap[Event[event].name] = Event[event];
 });
+// Ref : https://www.docs.developers.amplitude.com/analytics/apis/user-privacy-api/#response
+const DELETE_MAX_BATCH_SIZE = 100;
 const DESTINATION = "amplitude";
+const IDENTIFY_AM = "$identify";
+
 
 module.exports = {
   DESTINATION,
@@ -128,5 +132,7 @@ module.exports = {
   ConfigCategory,
   mappingConfig,
   nameToEventMap,
-  batchEventsWithUserIdLengthLowerThanFive
+  DELETE_MAX_BATCH_SIZE,
+  batchEventsWithUserIdLengthLowerThanFive,
+  IDENTIFY_AM
 };
