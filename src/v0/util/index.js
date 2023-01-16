@@ -1661,7 +1661,7 @@ const simpleProcessRouterDest = async (inputs, singleTfFunc, reqMetadata) => {
     return errorRespEvents;
   }
 
-  const respList = await Promise.all(
+  const respList = await Promise.allSettled(
     inputs.map(async input => {
       try {
         let resp = input.message;
