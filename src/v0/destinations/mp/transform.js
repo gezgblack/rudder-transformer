@@ -13,27 +13,27 @@ const {
   isHttpStatusSuccess,
   removeUndefinedValues,
   toUnixTimestamp,
-  getFieldValueFromMessage
+  getFieldValueFromMessage,
 } = require("../../util");
 const {
   ConfigCategory,
   mappingConfig,
   BASE_ENDPOINT,
-  BASE_ENDPOINT_EU
+  BASE_ENDPOINT_EU,
 } = require("./config");
 const { httpPOST } = require("../../../adapters/network");
 const {
   getDynamicErrorType,
-  processAxiosResponse
+  processAxiosResponse,
 } = require("../../../adapters/utils/networkUtils");
 const {
   createIdentifyResponse,
-  isImportAuthCredentialsAvailable
+  isImportAuthCredentialsAvailable,
 } = require("./util");
 const {
   InstrumentationError,
   NetworkError,
-  ConfigurationError
+  ConfigurationError,
 } = require("../../util/errorTypes");
 const tags = require("../../util/tags");
 
@@ -61,12 +61,8 @@ const setImportCredentials = destConfig => {
       : `${BASE_ENDPOINT}/import/`;
   const headers = {};
   const params = {};
-  const {
-    apiSecret,
-    serviceAccountUserName,
-    serviceAccountSecret,
-    projectId
-  } = destConfig;
+  const { apiSecret, serviceAccountUserName, serviceAccountSecret, projectId } =
+    destConfig;
   if (apiSecret) {
     headers.Authorization = `Basic ${base64Convertor(`${apiSecret}:`)}`;
   } else if (serviceAccountUserName && serviceAccountSecret && projectId) {
@@ -90,12 +86,8 @@ const responseBuilderSimple = (parameters, message, eventType, destConfig) => {
     JSON.stringify(removeUndefinedValues(parameters))
   ).toString("base64");
   response.params = { data: encodedData };
-  const {
-    apiSecret,
-    serviceAccountUserName,
-    serviceAccountSecret,
-    projectId
-  } = destConfig;
+  const { apiSecret, serviceAccountUserName, serviceAccountSecret, projectId } =
+    destConfig;
   const duration = getTimeDifference(message.timestamp);
   switch (eventType) {
     case EventType.ALIAS:
@@ -144,12 +136,12 @@ const responseBuilderSimple = (parameters, message, eventType, destConfig) => {
 const processRevenueEvents = (message, destination, revenueValue) => {
   const transactions = {
     $time: getEventTime(message),
-    $amount: revenueValue
+    $amount: revenueValue,
   };
   const parameters = {
     $append: { $transactions: transactions },
     $token: destination.Config.token,
-    $distinct_id: message.userId || message.anonymousId
+    $distinct_id: message.userId || message.anonymousId,
   };
 
   return responseBuilderSimple(
@@ -177,7 +169,7 @@ const getEventValueForTrackEvent = (message, destination) => {
     ...mappedProperties,
     token: destination.Config.token,
     distinct_id: message.userId || message.anonymousId,
-    time: unixTimestamp
+    time: unixTimestamp,
   };
 
   if (message.channel === "web" && message.context?.userAgent) {
@@ -188,7 +180,7 @@ const getEventValueForTrackEvent = (message, destination) => {
 
   const parameters = {
     event: message.event,
-    properties
+    properties,
   };
 
   return responseBuilderSimple(
@@ -238,7 +230,7 @@ const processIdentifyEvents = async (message, type, destination) => {
         "Unable to create the user",
         status,
         {
-          [tags.TAG_NAMES.ERROR_TYPE]: getDynamicErrorType(status)
+          [tags.TAG_NAMES.ERROR_TYPE]: getDynamicErrorType(status),
         },
         createUserResponse.response
       );
@@ -247,8 +239,8 @@ const processIdentifyEvents = async (message, type, destination) => {
       event: "$merge",
       properties: {
         $distinct_ids: [message.userId, message.anonymousId],
-        token: destination.Config.token
-      }
+        token: destination.Config.token,
+      },
     };
     const identifyTrackResponse = responseBuilderSimple(
       trackParameters,
@@ -273,7 +265,7 @@ const processPageOrScreenEvents = (message, type, destination) => {
     ...mappedProperties,
     token: destination.Config.token,
     distinct_id: message.userId || message.anonymousId,
-    time: toUnixTimestamp(message.timestamp)
+    time: toUnixTimestamp(message.timestamp),
   };
 
   if (message.name) {
@@ -291,7 +283,7 @@ const processPageOrScreenEvents = (message, type, destination) => {
   const eventName = type === "page" ? "Loaded a Page" : "Loaded a Screen";
   const parameters = {
     event: eventName,
-    properties
+    properties,
   };
   return responseBuilderSimple(parameters, message, type, destination.Config);
 };
@@ -307,8 +299,8 @@ const processAliasEvents = (message, type, destination) => {
     properties: {
       distinct_id: message.previousId || message.anonymousId,
       alias: message.userId,
-      token: destination.Config.token
-    }
+      token: destination.Config.token,
+    },
   };
   return responseBuilderSimple(parameters, message, type, destination.Config);
 };
@@ -331,8 +323,8 @@ const processGroupEvents = (message, type, destination) => {
           $token: destination.Config.token,
           $distinct_id: message.userId || message.anonymousId,
           $set: {
-            [groupKey]: [groupKeyVal]
-          }
+            [groupKey]: [groupKeyVal],
+          },
         };
         const response = responseBuilderSimple(
           parameters,
@@ -347,8 +339,8 @@ const processGroupEvents = (message, type, destination) => {
           $group_key: groupKey,
           $group_id: groupKeyVal,
           $set: {
-            ...message.traits
-          }
+            ...message.traits,
+          },
         };
 
         const groupResponse = responseBuilderSimple(
@@ -373,6 +365,12 @@ const processGroupEvents = (message, type, destination) => {
 };
 
 const processSingleMessage = async (message, destination) => {
+  if (message.userId) {
+    message.userId = String(message.userId);
+  }
+  if (message.anonymousId) {
+    message.anonymousId = String(message.anonymousId);
+  }
   if (!message.type) {
     throw new InstrumentationError("Event type is required");
   }
