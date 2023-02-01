@@ -52,6 +52,7 @@ async function userTransformHandlerV1(
   events,
   userTransformation,
   libraryVersionIds,
+  secrets,
   testMode = false,
 ) {
   /*
@@ -71,6 +72,7 @@ async function userTransformHandlerV1(
       userTransformation.code,
       libraryVersionIds,
       userTransformation.versionId,
+      secrets,
       testMode,
     );
     const isolatevm = await isolatevmFactory.create();

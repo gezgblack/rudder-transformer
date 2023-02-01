@@ -17,14 +17,20 @@ const UserTransformHandlerFactory = (userTransformation) => {
       }
     },
 
-    runUserTransfrom: async (events, testMode, libraryVersionIDs) => {
+    runUserTransfrom: async (events, testMode, libraryVersionIDs, secrets) => {
       switch (userTransformation.language) {
         case 'pythonfaas':
           return runOpenFaasUserTransform(events, userTransformation, testMode);
         case 'python':
           return runLambdaUserTransform(events, userTransformation, testMode);
         default:
-          return userTransformHandlerV1(events, userTransformation, libraryVersionIDs, testMode);
+          return userTransformHandlerV1(
+            events,
+            userTransformation,
+            libraryVersionIDs,
+            secrets,
+            testMode,
+          );
       }
     },
   };
