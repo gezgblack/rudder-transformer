@@ -213,7 +213,7 @@ async function userTransformHandler(
       events.forEach((ev) => {
         eventsMetadata[ev.message.messageId] = ev.metadata;
       });
-      const secrets = res.secrets || '{}';
+      const secrets = res.secrets || {};
 
       let userTransformedEvents = [];
       let result;

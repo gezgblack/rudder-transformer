@@ -23,7 +23,6 @@ async function loadModule(isolateInternal, contextInternal, moduleCode) {
 }
 
 async function createIvm(code, libraryVersionIds, versionId, secrets, testMode) {
-  secrets = JSON.parse(secrets);
   const redisCred = {
     port: secrets.REDIS_PORT,
     host: secrets.REDIS_HOST,
