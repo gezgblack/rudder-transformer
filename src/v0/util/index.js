@@ -1683,6 +1683,20 @@ const isHybridModeEnabled = (Config) => {
  */
 const getEventType = (message) => message?.type?.toLowerCase();
 
+// Set the user ID to an empty string for
+// all the falsy values (including 0 and false)
+// Otherwise, server panics while un-marshalling the response
+// while expecting only strings.
+const checkAndCorrectUserId = (statusCode, userId) => {
+  if (!userId) {
+    return '';
+  }
+  if (statusCode !== 400 && userId) {
+    return `${userId}`;
+  }
+  return userId;
+};
+
 /**
  * Get access token to be bound to the event req headers
  *
@@ -1706,7 +1720,7 @@ const getAccessToken = (metadata, accessTokenKey) => {
   const { secret } = metadata;
   // we would need to verify if secret is present and also if the access token field is present in secret
   if (!secret || !secret[accessTokenKey]) {
-    throw new OAuthSecretError("Empty/Invalid access token");
+    throw new OAuthSecretError('Empty/Invalid access token');
   }
   return secret[accessTokenKey];
 };
@@ -1805,5 +1819,6 @@ module.exports = {
   getEventReqMetadata,
   isHybridModeEnabled,
   getEventType,
-  getAccessToken
+  checkAndCorrectUserId,
+  getAccessToken,
 };
