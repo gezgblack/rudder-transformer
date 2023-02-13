@@ -73,6 +73,7 @@
     "md5": "^2.3.0",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.40",
+    "mongodb": "^5.0.1",
     "node-cache": "^5.1.2",
     "node-fetch": "^2.6.7",
     "object-hash": "^2.2.0",

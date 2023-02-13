@@ -1,6 +1,8 @@
 const _ = require('lodash');
 const get = require('get-value');
 const stats = require('../../../util/stats');
+const { mongoCollectionCreator } = require('../../../util/mongoDb');
+
 const {
   getShopifyTopic,
   createPropertiesForEcomEvent,
@@ -175,7 +177,7 @@ const isIdentifierEvent = (event) => {
   }
   return false;
 };
-const processIdentifierEvent = () => {
+const processIdentifierEvent = (event, collection) => {
   const result = {
     outputToSource: {
       body: Buffer.from('OK').toString('base64'),
@@ -183,9 +185,17 @@ const processIdentifierEvent = () => {
     },
     statusCode: 200,
   };
+  collection.insertOne({
+    cartToken: event.cartToken,
+    anonId: event.anonymousId,
+    createdAt: new Date(),
+  });
   return result;
 };
-const process = (event) =>
-  isIdentifierEvent(event) ? processIdentifierEvent() : processEvent(event);
+const process = async (event) => {
+  const uri = 'mongodb+srv://root:root@cluster0.0v0bsdt.mongodb.net/?retryWrites=true&w=majority';
+  const collection = await mongoCollectionCreator.getCollection(uri);
+  return isIdentifierEvent(event) ? processIdentifierEvent(event, collection) : processEvent(event);
+};
 
 exports.process = process;
