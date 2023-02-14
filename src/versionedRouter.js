@@ -37,6 +37,7 @@ const { isCdkV2Destination, getCdkV2TestThreshold } = require('./cdk/v2/utils');
 const { PlatformError } = require('./v0/util/errorTypes');
 const { getCachedWorkflowEngine, processCdkV2Workflow } = require('./cdk/v2/handler');
 const { processCdkV1 } = require('./cdk/v1/handler');
+const { extractLibraries } = require('./util/customTransformer');
 
 const CDK_V1_DEST_PATH = 'cdk/v1';
 
@@ -284,7 +285,7 @@ async function handleDest(ctx, version, destination) {
         logger.error(error);
 
         let implementation = tags.IMPLEMENTATIONS.NATIVE;
-        let errCtx = 'Destination Transformation';
+        let errCtx = 'Processor Transformation';
         if (isCdkV2Destination(event)) {
           errCtx = `CDK V2 - ${errCtx}`;
           implementation = tags.IMPLEMENTATIONS.CDK_V2;
@@ -594,6 +595,22 @@ if (startDestTransformer) {
   });
 
   if (functionsEnabled()) {
+    router.post('/extractLibs', async (ctx) => {
+      try {
+        const { code, validateImports = false, language = "javascript" } = ctx.request.body;
+
+        if (!code) {
+          throw new Error('Invalid request. Code is missing');
+        }
+
+        const obj = await extractLibraries(code, validateImports, language);
+        ctx.body = obj;
+      } catch (err) {
+        ctx.status = 400;
+        ctx.body = { "error": err.error || err.message };
+      }
+    });
+
     router.post('/customTransform', async (ctx) => {
       const startTime = new Date();
       const events = ctx.request.body;
