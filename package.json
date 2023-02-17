@@ -84,7 +84,6 @@
     "set-value": "^4.1.0",
     "sha256": "^0.2.0",
     "statsd-client": "^0.4.7",
-    "streaming-profile-transformations": "^1.0.0",
     "truncate-utf8-bytes": "^1.0.2",
     "ua-parser-js": "^1.0.33",
     "unset-value": "^2.0.1",

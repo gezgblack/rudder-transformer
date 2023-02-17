@@ -598,7 +598,7 @@ if (startDestTransformer) {
   if (functionsEnabled()) {
     router.post('/extractLibs', async (ctx) => {
       try {
-        const { code, validateImports = false, language = "javascript" } = ctx.request.body;
+        const { code, validateImports = false, language = 'javascript' } = ctx.request.body;
 
         if (!code) {
           throw new Error('Invalid request. Code is missing');
@@ -608,7 +608,7 @@ if (startDestTransformer) {
         ctx.body = obj;
       } catch (err) {
         ctx.status = 400;
-        ctx.body = { "error": err.error || err.message };
+        ctx.body = { error: err.error || err.message };
       }
     });
 
