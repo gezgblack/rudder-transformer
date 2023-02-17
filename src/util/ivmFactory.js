@@ -6,7 +6,6 @@ const stats = require('./stats');
 const { getLibraryCodeV1 } = require('./customTransforrmationsStore-v1');
 const { parserForImport } = require('./parser');
 const logger = require('../logger');
-const streamingProfiles = require('streaming-profile-transformations');
 
 const isolateVmMem = 128;
 async function evaluateModule(isolate, context, moduleCode) {
@@ -23,11 +22,6 @@ async function loadModule(isolateInternal, contextInternal, moduleCode) {
 }
 
 async function createIvm(code, libraryVersionIds, versionId, secrets, testMode) {
-  const redisCred = {
-    port: secrets.REDIS_PORT,
-    host: secrets.REDIS_HOST,
-    password: secrets.REDIS_PASSWORD,
-  };
   const createIvmStartTime = new Date();
   const logs = [];
   const libraries = await Promise.all(
@@ -188,6 +182,11 @@ async function createIvm(code, libraryVersionIds, versionId, secrets, testMode) 
     }),
   );
 
+  await jail.set('_rsSecrets', function (...args) {
+    if (args.length == 0 || !secrets || !secrets[args[0]]) return 'ERROR';
+    return secrets[args[0]];
+  });
+
   await jail.set('log', function (...args) {
     if (testMode) {
       let logString = 'Log:';
@@ -197,31 +196,6 @@ async function createIvm(code, libraryVersionIds, versionId, secrets, testMode) 
       logs.push(logString);
     }
   });
-
-  await jail.set(
-    '_getMainID',
-    new ivm.Reference(async (resolve, reject, ...args) => {
-      try {
-        const data = await streamingProfiles.GetMainId(redisCred, ...args);
-        resolve.applyIgnored(undefined, [new ivm.ExternalCopy(data).copyInto()]);
-      } catch (error) {
-        resolve.applyIgnored(undefined, [new ivm.ExternalCopy('ERROR').copyInto()]);
-      }
-    }),
-  );
-
-  await jail.set(
-    '_getFeatures',
-    new ivm.Reference(async (resolve, reject, ...args) => {
-      try {
-        const data = await streamingProfiles.GetFeatures(redisCred, ...args);
-        resolve.applyIgnored(undefined, [new ivm.ExternalCopy(data).copyInto()]);
-      } catch (error) {
-        console.log(error);
-        resolve.applyIgnored(undefined, [new ivm.ExternalCopy('ERROR').copyInto()]);
-      }
-    }),
-  );
 
   const bootstrap = await isolate.compileScript(
     'new ' +
@@ -261,31 +235,14 @@ async function createIvm(code, libraryVersionIds, versionId, secrets, testMode) 
           ]);
         });
       };
-
-      let GetMainId = _getMainID;
-      delete _getMainID;
-      global.GetMainId = function(...args) {
-        return new Promise((resolve,reject) => {
-          GetMainId.applyIgnored(undefined, [
-            new ivm.Reference(resolve),
-            new ivm.Reference(reject),
-            ...args.map(arg => new ivm.ExternalCopy(arg).copyInto())
-          ]);
-        });
+      
+      let rsSecrets = _rsSecrets;
+      delete _rsSecrets;
+      global.rsSecrets = function(...args) {
+        return rsSecrets([
+          ...args.map(arg => new ivm.ExternalCopy(arg).copyInto())
+        ]);
       };
-
-      let GetFeatures = _getFeatures;
-      delete _getFeatures;
-      global.GetFeatures = function(...args) {
-        return new Promise((resolve,reject) => {
-          GetFeatures.applyIgnored(undefined, [
-            new ivm.Reference(resolve),
-            new ivm.Reference(reject),
-            ...args.map(arg => new ivm.ExternalCopy(arg).copyInto())
-          ]);
-        });
-      };
-
 
       return new ivm.Reference(function forwardMainPromise(
         fnRef,
